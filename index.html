@@ -2,9 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Web Simulator</title>
+    <title>Online Interactive HTML | CSS | JavaScript Editor</title>
+    <meta name="description" content="Online fast and interactive editor for HTML, CSS and JavaScript.">
+    <meta name="keywords" content="html editor, css editor, js editor, javascript editor, html, css, javascript, js, web editor, online editor, fast editor, web ide, ide">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <style type="text/css" media="screen">
+    <style type="text/css">
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #CCC;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #999;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #888;
+        }
         .editor {
             position: absolute;
             top: 0;
@@ -13,23 +28,39 @@
             left: 0;
             min-height: 50vh;
         }
+        .controls>span{
+            padding: 8px;
+            color: lightgray;
+        }
+        .col-sm:hover .controls>span {
+            display: none;
+        }
+
     </style>
 </head>
 <body style="width: 100%;height: 100%; overflow: hidden">
 <section>
-    <iframe style="width:100%; height: 50vh; overflow: hidden; border-width: 0">
-
-    </iframe>
+    <iframe style="width:100%; height: 50vh; overflow: hidden; border-width: 0"></iframe>
 </section>
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm">
+            <div class="controls" style="position: absolute;z-index: 10; right: 0;">
+                <span>HTML</span>
+            </div>
             <div class="editor" id="html-editor"></div>
         </div>
         <div class="col-sm">
+            <div class="controls" style="position: absolute;z-index: 10; right: 0;">
+                <span>CSS</span>
+            </div>
             <div class="editor" id="css-editor"></div>
         </div>
         <div class="col-sm">
+            <div class="controls" style="position: absolute;z-index: 10; right: 0;">
+                <span id="js-title">JavaScript</span>
+                <button style="background: green; color: whitesmoke; display: none" onclick="renderDOMToIFrame(true)">Run</button>
+            </div>
             <div class="editor" id="js-editor"></div>
         </div>
     </div>
@@ -37,7 +68,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.1/ace.js"></script>
 <script>
     var languages = ["html", "css", "js"];
-    var defaultTheme = "ace/theme/monokai";
+    var theme = localStorage.getItem("theme") || "monokai";
+    var defaultTheme = "ace/theme/" + ( theme && theme.length > 0 ? theme : 'monokai' );
     var defaultHTML = '<!DOCTYPE html>\n' +
         '<html>\n' +
         '<head>\n' +
@@ -48,7 +80,9 @@
         '<body>\n' +
         '</body>\n' +
         '</html>';
+
     var htmlObject = document.createElement('div'); //dummy element
+
     function DOM(html, css, js) {
         this.html = html;
         this.css = css;
@@ -114,6 +148,9 @@
     );
 
     var iframe = document.querySelector("iframe");
+    var runWithJSButton = document.querySelector('button');
+    var jsTitle = document.querySelector('#js-title');
+
     var defaultCodes = {
         html: defaultHTML,
         css: '/*CSS*/',
@@ -129,16 +166,24 @@
         editor.session.on('change', function(delta) {
             var value = editor.getValue();
             localStorage.setItem(language, value);
+            _DOM.set(language, value);
             if(language !== 'js'){
-                _DOM.set(language, value);
                 renderDOMToIFrame();
+            }else{
+                runWithJSButton.style.display = 'block';
+                jsTitle.style.display = 'none';
             }
         });
     });
 
-    function renderDOMToIFrame(){
+    function renderDOMToIFrame(runJS){
         iframe.setAttribute('srcdoc', _DOM.getDOMString());
+        if(runJS){
+            runWithJSButton.style.display = 'none';
+            jsTitle.style.display = 'block';
+        }
     }
+    renderDOMToIFrame();
 </script>
 </body>
 </html>
