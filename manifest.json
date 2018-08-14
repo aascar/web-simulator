@@ -1,6 +1,6 @@
 {
-  "short_name": "Online Interactive HTML | CSS | JavaScript Editor",
-  "name": "Online Fast and interactive HTML, CSS and JavaScript Editor",
+  "short_name": "Online Interactive HTML | CSS | JavaScript Interpreter & Editor",
+  "name": "Online fast and interactive HTML, CSS and JavaScript Interpreter and Editor",
   "icons": [
     {
       "src": "favicon.png",
