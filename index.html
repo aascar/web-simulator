@@ -15,16 +15,13 @@
         }
     </style>
 </head>
-<body style="width: 100%;height: 100%">
-<div class="container-fluid">
-    <section>
-        <iframe
-                style="min-height: 50vh"
-                srcdoc="<style>h2{color: red;}</style><h2>Araja Jyothi Babu</h2>"
-        >
+<body style="width: 100%;height: 100%; overflow: hidden">
+<section>
+    <iframe style="width:100%; height: 50vh; overflow: hidden; border-width: 0">
 
-        </iframe>
-    </section>
+    </iframe>
+</section>
+<div class="container-fluid">
     <div class="row">
         <div class="col-sm">
             <div class="editor" id="html-editor">
@@ -48,6 +45,21 @@
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.1/ace.js"></script>
 <script>
+    var iframe = document.querySelector("iframe");
+    var defaultCodes = {
+        html: '<!DOCTYPE html>\n' +
+        '<html>\n' +
+        '<head>\n' +
+        '  <meta charset="UTF-8">\n' +
+        '  <meta name="viewport" content="width=device-width">\n' +
+        '  <title>Title</title>\n' +
+        '</head>\n' +
+        '<body>\n' +
+        '</body>\n' +
+        '</html>',
+        css: '/*CSS*/',
+        javascript: '//JavaScript'
+    };
     var languages = ["html", "css", "javascript"];
     var defaultTheme = "ace/theme/monokai";
     //configure editors
@@ -56,11 +68,11 @@
             mode: "ace/mode/" + language,
             theme: defaultTheme
         });
-        editor.setValue(localStorage.getItem(language) || '');
+        editor.setValue(localStorage.getItem(language) || defaultCodes[language]);
         editor.session.on('change', function(delta) {
             var value = editor.getValue();
             localStorage.setItem(language, value);
-            console.log(value);
+            iframe.setAttribute('srcdoc', value);
         });
     });
 </script>
