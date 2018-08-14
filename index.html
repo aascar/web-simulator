@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Simulator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <style type="text/css" media="screen">
+        .editor {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            min-height: 50vh;
+        }
+    </style>
+</head>
+<body style="width: 100%;height: 100%">
+<div class="container-fluid">
+    <section>
+        <iframe
+                style="min-height: 50vh"
+                srcdoc="<style>h2{color: red;}</style><h2>Araja Jyothi Babu</h2>"
+        >
+
+        </iframe>
+    </section>
+    <div class="row">
+        <div class="col-sm">
+            <div class="editor" id="html-editor">
+                
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="editor" id="css-editor">
+                
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="editor" id="javascript-editor">
+                function foo(items) {
+                var x = "All this is syntax highlighted";
+                return x;
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.1/ace.js"></script>
+<script>
+    var languages = ["html", "css", "javascript"];
+    var defaultTheme = "ace/theme/monokai";
+    //configure editors
+    languages.forEach(function (language) {
+        var editor = ace.edit(language + "-editor", {
+            mode: "ace/mode/" + language,
+            theme: defaultTheme
+        });
+        editor.setValue(localStorage.getItem(language) || '');
+        editor.session.on('change', function(delta) {
+            var value = editor.getValue();
+            localStorage.setItem(language, value);
+            console.log(value);
+        });
+    });
+</script>
+</body>
+</html>
