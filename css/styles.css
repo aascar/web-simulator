@@ -35,5 +35,5 @@ iframe{
     color: lightgray;
 }
 .col-sm:hover .controls>span {
-    display: none;
+    visibility: hidden;
 }

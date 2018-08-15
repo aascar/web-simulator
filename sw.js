@@ -2,7 +2,7 @@
 
 console.info('WORKER: executing.');
 
-var version = 'v1.0.0';
+var version = 'v1.0.1';
 
 var offlineFundamentals = [
     'index.html',

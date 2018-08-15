@@ -1,16 +1,12 @@
 var languages = ["html", "css", "js"];
 var theme = localStorage.getItem("theme") || "monokai";
 var defaultTheme = "ace/theme/" + ( theme && theme.length > 0 ? theme : 'monokai' );
-var defaultHTML = '<!DOCTYPE html>\n' +
-    '<html>\n' +
-    '<head>\n' +
-    '  <meta charset="UTF-8">\n' +
-    '  <meta name="viewport" content="width=device-width">\n' +
-    '  <title>Title</title>\n' +
-    '</head>\n' +
-    '<body>\n' +
-    '</body>\n' +
-    '</html>';
+var defaultHTML = '<h2>Happy Hacking!</h2>';
+var defaultCSS = 'body{' +
+    '   padding: 0;' +
+    '   margin: 0;' +
+    '}';
+var defaultJS = '"use strict";';
 
 var htmlObject = document.createElement('div'); //dummy element
 
@@ -84,8 +80,8 @@ var jsTitle = document.querySelector('#js-title');
 
 var defaultCodes = {
     html: defaultHTML,
-    css: '/*CSS*/',
-    js: '//JavaScript'
+    css: defaultCSS,
+    js: defaultJS
 };
 //configure editors
 languages.forEach(function (language) {
@@ -111,7 +107,7 @@ function renderDOMToIFrame(runJS){
     iframe.setAttribute('srcdoc', _DOM.getDOMString());
     if(runJS){
         runWithJSButton.style.display = 'none';
-        jsTitle.style.display = 'block';
+        jsTitle.style.display = 'inline';
     }
 }
 
