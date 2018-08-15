@@ -2,14 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Online Interactive HTML | CSS | JavaScript Interpreter & Editor</title>
+    <title>Online Interactive HTML | CSS | JavaScript Editor & Interpreter</title>
     <link rel="manifest" href="manifest.json">
     <link rel="shortcut icon" href="img/favicon.png">
     <meta name="description" content="Fast and interactive interpreter for HTML, CSS and JavaScript. Complete client side rendering. No server calls at all.">
     <meta name="keywords" content="web interpreter, html interpreter, javascript interpreter, html editor, css editor, js editor, javascript editor, html, css, javascript, js, web editor, online editor, fast editor, web ide, ide">
-    <meta property="og:site_name" content="Online Fast & Interactive HTML | CSS | JavaScript Interpreter & Editor">
-    <meta property="og:title" content="Online Fast & Interactive HTML | CSS | JavaScript Interpreter & Editor">
-    <meta property="og:description" content="Fast and interactive interpreter for HTML, CSS and JavaScript. Complete client side rendering. No server calls at all.">
+    <meta property="og:site_name" content="Online Fast & Interactive HTML | CSS | JavaScript Editor & Interpreter">
+    <meta property="og:title" content="Online Fast & Interactive HTML | CSS | JavaScript Editor & Interpreter">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ide.aascar.in">
+    <meta property="og:description" content="An interactive editor and fast interpreter for HTML, CSS and JavaScript. Complete client side rendering. No server calls at all.">
     <meta property="og:image" content="https://avatars2.githubusercontent.com/u/18125415?s=400&u=fa2ecf219c4a6a1c0119236d4980bca426137f1a&v=4">
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -23,27 +25,30 @@
     <link href="css/styles.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<section>
+<section id="fullscreen">
+    <div class="controls">
+        <button id="fullscreen-button" style="background: transparent; color: lightgray;" title="Full Screen" aria-label="Full Screen">&#x2610;</button>
+    </div>
     <iframe></iframe>
 </section>
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm">
-            <div class="controls" style="position: absolute;z-index: 10; right: 0;">
+            <div class="controls">
                 <span>HTML</span>
             </div>
             <div class="editor" id="html-editor"></div>
         </div>
         <div class="col-sm">
-            <div class="controls" style="position: absolute;z-index: 10; right: 0;">
+            <div class="controls">
                 <span>CSS</span>
             </div>
             <div class="editor" id="css-editor"></div>
         </div>
         <div class="col-sm">
-            <div class="controls" style="position: absolute;z-index: 10; right: 0;">
+            <div class="controls">
                 <span id="js-title">JavaScript</span>
-                <button style="background: green; color: whitesmoke; display: none" onclick="renderDOMToIFrame(true)">Run</button>
+                <button id="js-button" style="background: green; color: whitesmoke; display: none" onclick="renderDOMToIFrame(true)">Run</button>
             </div>
             <div class="editor" id="js-editor"></div>
         </div>

@@ -75,8 +75,8 @@ var _DOM = new DOM(
 );
 
 var iframe = document.querySelector("iframe");
-var runWithJSButton = document.querySelector('button');
-var jsTitle = document.querySelector('#js-title');
+var runWithJSButton = document.getElementById('js-button');
+var jsTitle = document.getElementById('js-title');
 
 var defaultCodes = {
     html: defaultHTML,
@@ -113,8 +113,26 @@ function renderDOMToIFrame(runJS){
 
 renderDOMToIFrame();
 
+var fullscreenButton = document.getElementById("fullscreen-button");
+var fullscreenDiv    = document.getElementById("fullscreen");
+var fullscreenFunc   = fullscreenDiv.requestFullscreen;
+
+if (!fullscreenFunc) {
+    ['mozRequestFullScreen',
+        'msRequestFullscreen',
+        'webkitRequestFullScreen'].forEach(function (req) {
+        fullscreenFunc = fullscreenFunc || fullscreenDiv[req];
+    });
+}
+
+function enterFullscreen() {
+    fullscreenFunc.call(fullscreenDiv);
+}
+
+fullscreenButton.addEventListener('click', enterFullscreen);
+
 (function() {
-    if ('serviceWorker' in navigator) {
+    /*if ('serviceWorker' in navigator) {
         console.info('CLIENT: service worker registration in progress.');
         navigator.serviceWorker.register('sw.js').then(function() {
             console.info('CLIENT: service worker registration complete.');
@@ -123,5 +141,5 @@ renderDOMToIFrame();
         });
     } else {
         console.info('CLIENT: service worker is not supported.');
-    }
+    }*/
 })();
