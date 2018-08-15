@@ -1,7 +1,7 @@
 var languages = ["html", "css", "js"];
 var theme = localStorage.getItem("theme") || "monokai";
 var defaultTheme = "ace/theme/" + ( theme && theme.length > 0 ? theme : 'monokai' );
-var defaultHTML = '<h2>Happy Hacking!</h2>';
+var defaultHTML = '<h2>Happy Hacking :)</h2>';
 var defaultCSS = 'body{' +
     '   padding: 0;' +
     '   margin: 0;' +
@@ -69,9 +69,9 @@ DOM.prototype.getDOMString = function () {
 };
 
 var _DOM = new DOM(
-    localStorage.getItem(languages[0]),
-    localStorage.getItem(languages[1]),
-    localStorage.getItem(languages[2])
+    localStorage.getItem(languages[0]) || defaultHTML,
+    localStorage.getItem(languages[1]) || defaultCSS,
+    localStorage.getItem(languages[2]) || defaultJS
 );
 
 var iframe = document.querySelector("iframe");
@@ -113,6 +113,7 @@ function renderDOMToIFrame(runJS){
 
 renderDOMToIFrame();
 
+//Full Screen
 var fullscreenButton = document.getElementById("fullscreen-button");
 var fullscreenDiv    = document.getElementById("fullscreen");
 var fullscreenFunc   = fullscreenDiv.requestFullscreen;
@@ -124,7 +125,6 @@ if (!fullscreenFunc) {
         fullscreenFunc = fullscreenFunc || fullscreenDiv[req];
     });
 }
-
 function enterFullscreen() {
     fullscreenFunc.call(fullscreenDiv);
 }
@@ -132,7 +132,7 @@ function enterFullscreen() {
 fullscreenButton.addEventListener('click', enterFullscreen);
 
 (function() {
-    /*if ('serviceWorker' in navigator) {
+    if ('serviceWorker' in navigator) {
         console.info('CLIENT: service worker registration in progress.');
         navigator.serviceWorker.register('sw.js').then(function() {
             console.info('CLIENT: service worker registration complete.');
@@ -141,5 +141,5 @@ fullscreenButton.addEventListener('click', enterFullscreen);
         });
     } else {
         console.info('CLIENT: service worker is not supported.');
-    }*/
+    }
 })();
